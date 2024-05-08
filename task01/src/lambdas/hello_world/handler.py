@@ -14,7 +14,8 @@ class HelloWorld(AbstractLambda):
         Explain incoming event here
         """
         # todo implement business logic
-        return 200
+        res = {"statusCode": 200, "message": "Hello from Lambda"}
+        return res
     
 
 HANDLER = HelloWorld()
