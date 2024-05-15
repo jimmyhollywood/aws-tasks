@@ -1,6 +1,6 @@
 from commons.log_helper import get_logger
 from commons.abstract_lambda import AbstractLambda
-import requests
+import json
 
 _LOG = get_logger('HelloWorld-handler')
 
@@ -21,21 +21,29 @@ class HelloWorld(AbstractLambda):
         http_dict = context.get("http", {})
         path = http_dict.get("path", "") if http_dict else ""
         method = http_dict.get("method", "") if http_dict else ""
-        response = {
-            "statusCode": 200,
-            "body": {
-                "statusCode": 200,
-            }}
+        # response = {
+        #     "statusCode": 200,
+        #     "body": {
+        #         "statusCode": 200,
+        #     }}
         if path == "/hello":
-            response["body"]["message"] = "Hello from Lambda"
-            print("Returning: ", response)
+            # response["body"]["message"] = "Hello from Lambda"
+            # print("Returning: ", response)
+            return json.dumps({
+                "statusCode": 200,
+                "message": "Hello from Lambda"
+            }).replace('"', '\\"')
         else:
-            response["statusCode"] = 400
-            response["body"]["statusCode"] = 400
-            response["body"][
-                "message"] = f"Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}"
-            print("Returning: ", response)
-        return response
+            # response["statusCode"] = 400
+            # response["body"]["statusCode"] = 400
+            # response["body"][
+            #     "message"] = f"Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}"
+            return json.dumps({
+                "statusCode": 400,
+                "message": f"Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}"
+            }).replace('"', '\\"')
+            # print("Returning: ", response)
+        # return response
 
 
 HANDLER = HelloWorld()
