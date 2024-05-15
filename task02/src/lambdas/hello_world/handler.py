@@ -22,6 +22,7 @@ class HelloWorld(AbstractLambda):
         path = http_dict.get("path", "") if http_dict else ""
         method = http_dict.get("method", "") if http_dict else ""
         response = {
+            "statusCode": 200,
             "body": {
                 "statusCode": 200,
             }}
@@ -29,6 +30,7 @@ class HelloWorld(AbstractLambda):
             response["body"]["message"] = "Hello from Lambda"
             print("Returning: ", response)
         else:
+            response["statusCode"] = 400
             response["body"]["statusCode"] = 400
             response["body"][
                 "message"] = f"Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}"
