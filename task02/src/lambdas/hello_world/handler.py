@@ -30,20 +30,14 @@ class HelloWorld(AbstractLambda):
             # response["body"]["message"] = "Hello from Lambda"
             # print("Returning: ", response)
             return json.dumps({
-                "statusCode": 200,
-                "message": "Hello from Lambda"
-            }).replace('"', '\\"')
+                'statusCode': 200,
+                'message': 'Hello from Lambda'
+            })
         else:
-            # response["statusCode"] = 400
-            # response["body"]["statusCode"] = 400
-            # response["body"][
-            #     "message"] = f"Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}"
             return json.dumps({
-                "statusCode": 400,
-                "message": f"Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}"
-            }).replace('"', '\\"')
-            # print("Returning: ", response)
-        # return response
+                'statusCode': 200,
+                'message': f'Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}'
+            })
 
 
 HANDLER = HelloWorld()
