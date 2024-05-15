@@ -23,17 +23,15 @@ class HelloWorld(AbstractLambda):
 
         if path == "/hello":
             res = {
-                "body": {
-                    "statusCode": 200,
-                    "message": "Hello from Lambda"
-                }}
+                "statusCode": 200,
+                "message": "Hello from Lambda"
+            }
             print("Returning: ", res)
             return res
         res = {
-            "body": {
-                "statusCode": 400,
-                "message": f"Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}"
-            }}
+            "statusCode": 400,
+            "message": f"Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}"
+        }
         print("Returning: ", res)
         return res
 
