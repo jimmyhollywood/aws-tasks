@@ -21,5 +21,5 @@ class TestSuccess(HelloWorldLambdaTestCase):
                                            'requestId': '44fde757-029e-45a9-ae33-95373edde4cf', 'routeKey': '$default',
                                            'stage': '$default', 'time': '15/May/2024:13:25:45 +0000',
                                            'timeEpoch': 1715779545482}, 'isBase64Encoded': False}
-        self.assertEqual(self.HANDLER.handle_request(request_data, dict()), {"statusCode": 200,
-                                                                             "message": "Hello from Lambda"})
+        self.assertEqual(self.HANDLER.handle_request(request_data, dict()), {"body": {"statusCode": 200,
+                                                                                      "message": "Hello from Lambda"}})

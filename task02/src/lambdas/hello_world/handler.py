@@ -8,7 +8,7 @@ class HelloWorld(AbstractLambda):
 
     def validate_request(self, event) -> dict:
         pass
-        
+
     def handle_request(self, event, context):
         """
         Explain incoming event here
@@ -23,15 +23,17 @@ class HelloWorld(AbstractLambda):
 
         if path == "/hello":
             res = {
-                "statusCode": 200,
-                "message": "Hello from Lambda"
-            }
+                "body": {
+                    "statusCode": 200,
+                    "message": "Hello from Lambda"
+                }}
             print("Returning: ", res)
             return res
         res = {
-            "statusCode": 400,
-            "message": f"Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}"
-        }
+            "body": {
+                "statusCode": 400,
+                "message": f"Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}"
+            }}
         print("Returning: ", res)
         return res
 
