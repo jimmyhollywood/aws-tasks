@@ -30,11 +30,27 @@
     "dependencies": [],
     "resources": {
       "/hello": {
-        "enable_cors": false,
         "GET": {
+          "enable_cors": false,
+          "authorization_type": "NONE",
           "integration_type": "lambda",
-          "lambda_name": "hello_world"
+          "lambda_name": "hello_world",
+          "enable_proxy": false,
+          "api_key_required": false,
+          "method_request_parameters": {},
+          "integration_request_body_template": {},
+          "responses": [],
+          "integration_responses": [],
+          "default_error_pattern": true
         }
+      }
+    },
+    "apiGateways": {
+      "myApiGateway": {
+        "path": "myApiPath",
+        "method": "GET",
+        "lambdaName": "hello_world",
+        "authorizationType": "NONE"
       }
     }
   }

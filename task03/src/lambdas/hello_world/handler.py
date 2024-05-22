@@ -19,6 +19,7 @@ class HelloWorld(AbstractLambda):
             'statusCode': 200,
             'message': 'Hello from Lambda'
         })
+        # return "Hello from Lambda"
     
 
 HANDLER = HelloWorld()
