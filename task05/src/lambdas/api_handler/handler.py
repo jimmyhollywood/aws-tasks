@@ -21,7 +21,7 @@ class ApiHandler(AbstractLambda):
         # todo implement business logic
         _LOG.info(event)
         db = boto3.resource("dynamodb")
-        table_name = "cmtr-27efb7c4-Events"
+        table_name = "cmtr-27efb7c4-Events-test"
         _LOG.info(f"table name: {table_name}")
         table = db.Table(table_name)
 
