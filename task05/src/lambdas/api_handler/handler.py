@@ -36,7 +36,7 @@ class ApiHandler(AbstractLambda):
         table.put_item(Item=obj)
         return {
             "statusCode": 201,
-            "event": event,
+            "event": obj,
         }
 
 HANDLER = ApiHandler()
