@@ -16,14 +16,15 @@
   ],
   "event_sources": [
     {
-    "resource_type": "dynamodb_trigger",
-    "target_table": "Configuration",
-    "batch_size": 1
-}
+      "resource_type": "dynamodb_trigger",
+      "target_table": "Configuration",
+      "batch_size": 1
+    }
   ],
   "env_variables": {
     "CONFIGURATION_TABLE": "${configuration_table}",
-    "AUDIT_TABLE": "${audit_table}"},
+    "AUDIT_TABLE": "${audit_table}"
+  },
   "publish_version": false,
   "url_config": {},
   "ephemeral_storage": 512,
