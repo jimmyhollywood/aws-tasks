@@ -28,7 +28,7 @@ class AuditProducer(AbstractLambda):
 
         db = boto3.resource("dynamodb")
 
-        audit_t = db.Table(audit_table_name)
+        audit_t = db.Table("cmtr-27efb7c4-Audit-test")
         now = datetime.datetime.now().isoformat()
         try:
             ev = event["Records"][0]
