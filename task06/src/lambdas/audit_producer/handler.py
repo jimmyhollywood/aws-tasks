@@ -28,7 +28,7 @@ class AuditProducer(AbstractLambda):
 
         db = boto3.resource("dynamodb")
 
-        audit_t = db.table(audit_table_name)
+        audit_t = db.Table(audit_table_name)
         now = datetime.datetime.now().isoformat()
         try:
             ev = event["Records"][0]
@@ -52,6 +52,7 @@ class AuditProducer(AbstractLambda):
                     "oldValue": int(ev['dynamodb']['OldImage']['value']['N']),
                     "newValue": int(ev['dynamodb']['NewImage']['value']['N'])
                 }
+            audit_t.put_item(Item=obj)
 
         except Exception as e:
             _LOG.error(e)
