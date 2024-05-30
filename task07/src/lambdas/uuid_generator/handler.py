@@ -18,7 +18,7 @@ class UuidGenerator(AbstractLambda):
         Explain incoming event here
         """
         # todo implement business logic
-        now = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
+        now = datetime.datetime.now().isoformat()[:23] + "Z"
         res = {
             "ids": list([str(uuid.uuid4() for _ in range(10))])
         }
