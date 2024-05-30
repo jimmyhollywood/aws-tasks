@@ -23,7 +23,7 @@ class UuidGenerator(AbstractLambda):
             "ids": list([str(uuid.uuid4() for _ in range(10))])
         }
         s3 = boto3.client('s3')
-        s3.put_object(Body=json.dumps(res), Bucket="cmtr-27efb7c4-uuid-storage-test", Key=now)
+        s3.put_object(Body=res, Bucket="cmtr-27efb7c4-uuid-storage-test", Key=now)
 
 
 HANDLER = UuidGenerator()
