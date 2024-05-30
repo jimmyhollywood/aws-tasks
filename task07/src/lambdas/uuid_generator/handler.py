@@ -20,7 +20,7 @@ class UuidGenerator(AbstractLambda):
         # todo implement business logic
         now = datetime.datetime.now().isoformat()[:23] + "Z"
         res = {
-            "ids": list([str(uuid.uuid4() for _ in range(10))])
+            "ids": list([str(uuid.uuid4()) for _ in range(10)])
         }
         s3 = boto3.client('s3')
         s3.put_object(Body=res, Bucket="cmtr-27efb7c4-uuid-storage-test", Key=now)
