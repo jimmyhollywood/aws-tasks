@@ -2,9 +2,9 @@
 	"Version": "2012-10-17",
 	"Statement": [
 		{
-			"Sid": "VisualEditor0",
+			"Sid": "allowList",
 			"Effect": "Allow",
-			"Action": "s3:ListAllMyBuckets",
+			"Action": ["s3:ListAllMyBuckets", "s3:ListBucket"],
 			"Resource": "*"
 		}
 	]

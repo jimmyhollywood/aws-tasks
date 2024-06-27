@@ -9,7 +9,7 @@
         "s3:PutObject"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:s3:::cmtr-27efb7c4-iam-pela-bucket-1-7525387/*",
+      "Resource": "arn:aws:s3:::cmtr-27efb7c4-iam-pela-bucket-1-4807962/*",
       "Principal": {
         "AWS": [
           "arn:aws:iam::905418349556:role/cmtr-27efb7c4-iam-pela-iam_role"
