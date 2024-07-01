@@ -2,7 +2,7 @@ from commons.log_helper import get_logger
 from commons.abstract_lambda import AbstractLambda
 import requests
 import boto3
-import os
+import json
 from decimal import Decimal
 import uuid
 
@@ -26,23 +26,24 @@ class Processor(AbstractLambda):
             item = {
                 'id': str(uuid.uuid4()),
                 "forecast": {
-                "elevation": Decimal(response['elevation']),
-                "generationtime_ms": Decimal(response['generationtime_ms']),
+                "elevation": response['elevation'],
+                "generationtime_ms": response['generationtime_ms'],
                 "hourly": {
-                    "temperature_2m": Decimal(response['hourly']['temperature_2m']),
+                    "temperature_2m": response['hourly']['temperature_2m'],
                     "time": response['hourly']['time']
                 },
                 "hourly_units": {
-                    "temperature_2m": Decimal(response['hourly_units']['temperature_2m']),
+                    "temperature_2m": response['hourly_units']['temperature_2m'],
                     "time": response['hourly_units']['time']
                 },
-                "latitude": Decimal(response['latitude']),
-                "longitude": Decimal(response['longitude']),
+                "latitude": response['latitude'],
+                "longitude": response['longitude'],
                 "timezone": response['timezone'],
                 "timezone_abbreviation": response['timezone_abbreviation'],
                 "utc_offset_seconds": response['utc_offset_seconds']
                 }
             }
+            item = json.loads(json.dumps(item), parse_float=Decimal)
             table.put_item(Item=item)
         except Exception as e:
             print(e)
