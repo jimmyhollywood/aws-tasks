@@ -19,29 +19,33 @@ class Processor(AbstractLambda):
         """
         table_name = "cmtr-27efb7c4-Weather-test"
         db = boto3.resource("dynamodb")
-        table = db.Table(table_name)
-        response = requests.get("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m")
-        item = {
-            'id': str(uuid.uuid4()),
-            "forecast": {
-            "elevation": response['elevation'],
-            "generationtime_ms": response['generationtime_ms'],
-            "hourly": {
-                "temperature_2m": response['hourly']['temperature_2m'],
-                "time": response['hourly']['time']
-            },
-            "hourly_units": {
-                "temperature_2m": response['hourly_units']['temperature_2m'],
-                "time": response['hourly_units']['time']
-            },
-            "latitude": response['latitude'],
-            "longitude": response['longitude'],
-            "timezone": response['timezone'],
-            "timezone_abbreviation": response['timezone_abbreviation'],
-            "utc_offset_seconds": response['utc_offset_seconds']
+        try:
+            table = db.Table(table_name)
+            response = requests.get("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m").json()
+            item = {
+                'id': str(uuid.uuid4()),
+                "forecast": {
+                "elevation": response['elevation'],
+                "generationtime_ms": response['generationtime_ms'],
+                "hourly": {
+                    "temperature_2m": response['hourly']['temperature_2m'],
+                    "time": response['hourly']['time']
+                },
+                "hourly_units": {
+                    "temperature_2m": response['hourly_units']['temperature_2m'],
+                    "time": response['hourly_units']['time']
+                },
+                "latitude": response['latitude'],
+                "longitude": response['longitude'],
+                "timezone": response['timezone'],
+                "timezone_abbreviation": response['timezone_abbreviation'],
+                "utc_offset_seconds": response['utc_offset_seconds']
+                }
             }
-        }
-        table.put_item(Item=item)
+            table.put_item(Item=item)
+        except Exception as e:
+            print(e)
+            raise
 
 
 HANDLER = Processor()
