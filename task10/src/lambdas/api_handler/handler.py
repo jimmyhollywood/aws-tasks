@@ -8,14 +8,32 @@ class ApiHandler(AbstractLambda):
 
     def validate_request(self, event) -> dict:
         pass
-        
+
     def handle_request(self, event, context):
         """
         Explain incoming event here
         """
-        # todo implement business logic
+
+        path = event.get("path", None)
+        method = event.get("methodHttp", "")
+        if path:
+            if path == "/signup":
+                ...
+            elif path == "/signin":
+                ...
+            elif path == "/tables":
+                if method == "GET":
+                    ...
+                elif method == "POST":
+                    ...
+            elif path == "reservations":
+                if method == "GET":
+                    ...
+                elif method == "POST":
+                    ...
+
         return 200
-    
+
 
 HANDLER = ApiHandler()
 
