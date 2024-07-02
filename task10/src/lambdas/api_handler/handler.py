@@ -27,7 +27,7 @@ class ApiHandler(AbstractLambda):
         client = boto3.client('cognito-idp')
         user_pool_name = os.environ.get("USER_POOL")
         _LOG.info(f"Looking for user pool id for: {user_pool_name}")
-        user_pool_id = ApiHandler.get_user_pool_id(client, user_pool_name)
+        user_pool_id = client.get_user_pool_id(client, user_pool_name)
         _LOG.info(f"User pool id: {user_pool_id}")
 
         first_name = data.get("firstName", "")
