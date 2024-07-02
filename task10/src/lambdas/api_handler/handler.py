@@ -10,9 +10,8 @@ import os
 _LOG = get_logger('ApiHandler-handler')
 
 
-def get_user_pool_id(client, user_pool_name: str) -> str:
-    user_pools = client.list_user_pools(MaxResults=60)
-    for user_pool in user_pools:
+def get_user_pool_id(pools, user_pool_name: str) -> str:
+    for user_pool in pools:
         _LOG.info(f"User pool: {user_pool}")
         if user_pool["Name"] == user_pool_name:
             return user_pool["Id"]
@@ -28,7 +27,10 @@ class ApiHandler(AbstractLambda):
         client = boto3.client('cognito-idp')
         user_pool_name = os.environ.get("USER_POOL")
         _LOG.info(f"Looking for user pool id for: {user_pool_name}")
-        user_pool_id = get_user_pool_id(client, user_pool_name)
+
+        user_pools = client.list_user_pools(MaxResults=60)
+        _LOG.info(f"User pools list: {user_pools}")
+        user_pool_id = get_user_pool_id(user_pools, user_pool_name)
         _LOG.info(f"User pool id: {user_pool_id}")
 
         first_name = data.get("firstName", "")
