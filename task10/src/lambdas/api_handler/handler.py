@@ -85,10 +85,10 @@ class ApiHandler(AbstractLambda):
         method = event.get("methodHttp", "")
         _LOG.info(f"Event: {event}")
         _LOG.info(f"Context: {context}")
-        # body = json.loads(event['body'])
+        body = json.loads(event['body'])
         if path:
             if path == "/signup":
-                return self.signup(event)
+                return self.signup(body)
             elif path == "/signin":
                 ...
             elif path == "/tables":
