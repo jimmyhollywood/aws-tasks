@@ -68,7 +68,9 @@ class ApiHandler(AbstractLambda):
             _LOG.info(f'set_user_password permanent response: {resp}')
         except Exception as e:
             _LOG.error(f"Exception during setting password: {e}")
-            raise
+            return {
+                "statusCode": 400
+            }
         return {
             "statusCode": 200
         }
