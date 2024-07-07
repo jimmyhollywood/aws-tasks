@@ -13,7 +13,7 @@ _LOG = get_logger('ApiHandler-handler')
 def get_user_pool_id(client, user_pool_name: str) -> str:
     user_pools = client.list_user_pools(MaxResults=60)
     for user_pool in user_pools["UserPools"]:
-        _LOG.info(f"User pool: {user_pool}")
+        # _LOG.info(f"User pool: {user_pool}")
         if user_pool["Name"] == user_pool_name:
             return user_pool["Id"]
 
