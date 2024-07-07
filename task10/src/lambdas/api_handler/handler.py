@@ -38,6 +38,17 @@ class ApiHandler(AbstractLambda):
         password = data.get("password", "")
 
         try:
+
+            email_pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+            if not re.match(email_pattern, email):
+                _LOG.error('Invalid email')
+                raise Exception('Invalid email')
+
+            pass_pattern = r'^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^\w\s]).{12,}$'
+            if not re.match(pass_pattern, password):
+                _LOG.info('Invalid password')
+                raise Exception('Invalid password')
+
             resp = client.admin_create_user(
                 UserPoolId=user_pool_id,
                 Username=email,
@@ -66,11 +77,9 @@ class ApiHandler(AbstractLambda):
                 Permanent=True
             )
             _LOG.info(f'set_user_password permanent response: {resp}')
-        except Exception as e:
-            _LOG.error(f"Exception during setting password: {e}")
-            return {
-                "statusCode": 400
-            }
+        except Exception:
+            raise
+
         return {
             "statusCode": 200
         }
@@ -97,21 +106,27 @@ class ApiHandler(AbstractLambda):
         _LOG.info(f"Event: {event}")
         _LOG.info(f"Context: {context}")
         body = json.loads(event['body'])
-        if path:
-            if path == "/signup":
-                return self.signup(body)
-            elif path == "/signin":
-                pass
-            elif path == "/tables":
-                if method == "GET":
+        try:
+            if path:
+                if path == "/signup":
+                    return self.signup(body)
+                elif path == "/signin":
                     pass
-                elif method == "POST":
-                    pass
-            elif path == "reservations":
-                if method == "GET":
-                    pass
-                elif method == "POST":
-                    pass
+                elif path == "/tables":
+                    if method == "GET":
+                        pass
+                    elif method == "POST":
+                        pass
+                elif path == "reservations":
+                    if method == "GET":
+                        pass
+                    elif method == "POST":
+                        pass
+        except Exception:
+            return {
+                "statusCode": 400
+            }
+
 
 HANDLER = ApiHandler()
 
